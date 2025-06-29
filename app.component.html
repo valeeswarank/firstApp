@@ -1,0 +1,195 @@
+<app-topbar></app-topbar>
+
+<app-usr [user]="userName2"></app-usr>
+<h1>Route Lazy Loading</h1>
+<a routerLink="admin">Go to Admin</a>
+<router-outlet></router-outlet>
+
+<h1>Basic Routing</h1>
+<h2>{{amount | curruncyConvertor}}</h2>
+<router-outlet />
+<ul>
+  @for (user of users1; track user.id){
+    <li><a routerLink="user/{{user.id}}/{{user.name}}">{{user.name}}</a></li>
+  }
+  
+</ul>
+<a [routerLink]="['profile', {name:'valee', age:50}]">Profile</a>
+<br>
+<h1>API Call Service - Local</h1>
+<h2>Local JSON Server  - typicode</h2>
+<p>This part of code is working by using npm install json-server from typicode as well as in code thunder client.</p>
+<form #userForm="ngForm" (ngSubmit)="addUser(userForm.value)">
+  <input type="text" placeholder="Enter Name" name="name" [ngModel]="selectedUser?.name" ><br>
+  <input type="text" placeholder="Enter age" name="age" [ngModel]="selectedUser?.age"><br>
+  <input type="text" placeholder="Enter gender" name="gender" [ngModel]="selectedUser?.gender"><br>
+  @if(!selectedUser){
+    <button>Add User</button>
+  }@else {
+    <button>Update User</button>
+  }
+  
+</form>
+
+  @for(user of usersData; track user.id){
+    <ul>
+    <li>{{user.id}}</li>
+    <li>{{user.name}}</li>
+    <li>{{user.age}}</li>
+    <li>{{user.gender}}</li>
+    <li><button (click)="deleteUser(user.id)">delete</button></li>
+    <li><button (click)="selectUser(user.id)">update</button></li>
+    </ul>
+  }
+
+<br>
+<h1>API Call Service</h1>
+<div>
+  @for(product of productData; track product.id){
+    <ul>
+      <li>Name: {{product.title}}</li>
+      <li>Price: {{product.price}}</li>
+      <li>Rating: {{product.rating}}</li>
+      <li><img src="{{product.thumbnail}}"/></li>
+    </ul>
+  }
+</div>
+<app-sidebar></app-sidebar>
+<h1>Hi Valee!</h1>
+<p>Application Name  : {{ title | uppercase}}</p>
+<p>Author Name       : {{ author | lowercase}}</p>
+<p>Date              : {{date }}</p>
+<p>Version           : {{version}}</p>
+<p>{{'Valee'.toLocaleUpperCase()}}</p>
+<button (click)="alertFirst()">Alert Me!</button>
+<button (click)="sum_number(10,10)">sumnumber</button>
+<h1>Counter App</h1>
+<div style="text-align: center;">
+<h1 class="count">{{ count }}</h1>
+<button class="btn bg-g" (click)="handleCounter('plus')">Increment</button>
+<button class="btn bg-b" (click)="handleCounter('reset')">Reset</button>
+<button class="btn bg-r" (click)="handleCounter('minus')">Decrement</button>
+</div>
+
+<h1>Input handling</h1>
+<div>
+<h2>{{ username }}</h2>
+<input (input)="getUserName($event)" type="text" name="" id="" placeholder="Enter your name" value="{{username}}" #userName>
+<button (click)="setUserName()">Set user name</button>
+<button (click)="getUserNameWithTemplate(userName.value)">Get user name</button>
+</div>
+<br><br>
+<h1>If Else | Control Flow</h1>
+<button (click)="show()">Show</button>
+<button (click)="hide()">Hide</button>
+<button (click)="toggle()">Toggle</button>
+<button (click)="toggle()">{{display?'hide':'show'}}</button>
+@if (display){
+  <div style="background-color: green;height: 200px; width: 200px;"></div>
+}
+
+
+<h1>Switch Cases Angular 19</h1>
+@switch (bgcolor) {
+  @case('red'){
+    <h1 style="background-color: red;">red color</h1>
+  }
+  @case ('blue') {
+    <h1 style="background-color: blue;">blue color</h1>
+  }
+    @case ('yellow') {
+    <h1 style="background-color: yellow;">yellow color</h1>
+  }
+    @case ('teal') {
+    <h1 style="background-color: teal;">teal color</h1>
+  }
+    @case ('blue') {
+    <h1 style="background-color: orange;">orange color</h1>
+  }
+}
+<br><br>
+<h1>For loop</h1>
+@for (user of users; track $index) {
+  <p>{{ user }}</p>
+}
+<br><br>
+@for (student of students; track student.name; let id=$index) {
+  <p>Id: {{id+1}}, Name: {{student.name}}, Age: {{student.age}}</p>
+}
+
+<h1>Events in Angular</h1>
+<button name="login" (click)="handleEvent($event)">Click on Button</button>
+<br><br>
+<div (mouseenter)="handleEvent($event)" style="background-color: green;height:100px;width:100px"></div>
+<br><br>
+<div (mouseleave)="handleEvent($event)" style="background-color: red;height:100px;width:100px" id="d1"></div>
+<br><br>
+test
+<input (input)="handleEvent($event)" type="text" name="user">
+<h1>Signals</h1>
+<p>{{data}}</p>
+<p>{{counts()}}</p>
+<button (click)="updateValue()">update</button>
+
+<h1>Computed Signals</h1>
+<p>z={{z()}}</p>
+
+<h1>Effects in Angular</h1>
+<p>username:{{username1()}}</p>
+<button (click)="changeName()">Change name</button>
+
+<h1>for loop contextual variables</h1>
+
+@for(name of names; track name; let e=$even; let o=$odd){
+  @if($first){
+    <p style="color:green">{{$index}}/{{$count}}, {{name}}</p>
+  }
+  @else if($last){
+    <p style="color:red">{{$index}}/{{$count}}, {{name}}</p>
+  }
+  @else {
+    <p>{{$index}}/{{$count}}, {{name}}</p>
+  }  
+}
+
+<h1>Two way binding</h1>
+<input type="text" placeholder="Enter your name" [(ngModel)]="name1">
+<h2>entered name is: {{name1}}</h2>
+
+<h1>todo</h1>
+<input [(ngModel)]="task" type="text" placeholder="Enter task name">
+<button (click)="addTask()">Add Task</button>
+@for(task of taskList; track task.id){
+  <ul class="task-list">
+    <li>{{task.id}} {{task.name}} <button (click)="deleteTask(task.id)">delete</button></li>
+  </ul>
+}
+
+<h1 [style.color]="flag ? color2 : color1">Dynamic Styling</h1>
+
+<hr>
+<h1 *ngIf="show1">Directives Example</h1>
+<br><br>  
+<h1>*ngFor directive</h1>
+<ul>
+  <li *ngFor="let x of names">{{x}}</li>
+</ul>
+<ul>
+  <li *ngFor="let student of students">
+    {{student.name}}, {{student.age}}
+  </li>
+</ul>
+<br>
+
+<h1 *ngIf="show2">*ngIf toggle head</h1>
+<button (click)="toggleMe()">toggle1</button>
+
+<h1>*ngSwitch directive</h1>
+<div [ngSwitch]="color">
+<h1 *ngSwitchCase="'red'" style="color:red">red color</h1>
+<h1 *ngSwitchCase="'green'" style="color:green">green color</h1>
+<h1 *ngSwitchCase="'yellow'" style="color:yellow">yellow color</h1>
+<h1 *ngSwitchCase="'teal'" style="color:teal">teal color</h1>
+<h1 *ngSwitchDefault > No color </h1>
+</div>
+

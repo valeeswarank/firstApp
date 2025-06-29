@@ -1,0 +1,52 @@
+<h1>Home Page</h1>
+<button (click)="goToProfile()">Go to Profile</button>
+<hr>
+<h1>Basic Reactive Forms</h1>
+<br>
+<br>
+<input type="text" placeholder="Enter Name" [formControl]="name1"><br>
+<input type="text" placeholder="Enter City" [formControl]="city1"><br>
+<input type="text" placeholder="Enter Pincode" [formControl]="pinc1"><br>
+<button (click)="getInfo()">Get Info</button><button (click)="setInfo()">Set Info</button>
+
+<h1>{{name1.value}}</h1>
+<hr>
+<h1>Form grouping in reactive form</h1>
+<form [formGroup]="homeForm" (ngSubmit)="submitData()">
+    <input type="text" placeholder="Enter Name" formControlName="name">
+    <span *ngIf="name?.hasError('required')">Name is required</span>
+    <span *ngIf="name?.invalid && (name?.dirty || name?.touched)">Please enter valid input</span><br>
+    <input type="text" placeholder="Enter City" formControlName="city">
+    <span *ngIf="city?.hasError('required')">City is required</span><br>
+    <input type="text" placeholder="Enter Pincode" formControlName="pinc">
+    <span *ngIf="pinc?.hasError('required')">Pincode is required</span><br>
+    <button>Submit</button>
+</form>
+
+<hr>
+<h1>Template Driven Form with Validation</h1>
+<form #userForm="ngForm" (ngSubmit)="addUser(userForm.value)">
+    <input required #name="ngModel" type="text" placeholder="Enter name" name="name" ngModel>
+    <span class="error" *ngIf="name.invalid && name.touched">* Name is required</span><br>
+    <input required #city="ngModel" minlength="5" maxlength="10" type="text" placeholder="Enter city" name="city" ngModel>
+    <span class="error" *ngIf="city.invalid && city.touched">* City is required (length min 5 to max 10).</span><br>
+    <input required #email="ngModel" email type="text" placeholder="Enter email" name="email" ngModel>
+    <span class="error" *ngIf="email.invalid && email.touched">* Enter valid email.</span><br>
+    <input required #address="ngModel" pattern="[0-9a-zA-Z\s]+" type="text" placeholder="Enter address" name="address" ngModel>
+    <span class="error" *ngIf="address.invalid && address.touched">* Enter valid address.</span><br>           
+    <select #gender="ngModel" required name="gender" ngModel>
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+    <span class="error" *ngIf="gender.invalid && gender.touched">* Select Gender.</span><br>   
+    <br>
+    <input type="range" name="range" ngModel>
+    <button [disabled]="userForm.invalid">Add User</button>
+</form>
+
+<h3>Form Data</h3>
+<p>Name: {{userData?.name}}</p>
+<p>City: {{userData?.city}}</p>
+<p>Gend: {{userData?.gender}}</p>
+<p>Rang: {{userData?.range}}</p>
